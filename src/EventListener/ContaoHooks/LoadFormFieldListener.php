@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
  */
 
-namespace Markocupic\RszJahresprogrammBundle\EventListener\ContaoHooks;
+namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
 use Contao\Database;
 use Contao\Widget;
