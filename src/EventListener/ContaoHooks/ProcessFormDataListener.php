@@ -15,10 +15,10 @@ namespace Markocupic\RszJahresprogrammBundle\EventListener\ContaoHooks;
 use Contao\Database;
 
 /**
- * Class ParseBackendTemplateListener
+ * Class ProcessFormDataListener
  * @package Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks
  */
-class ParseBackendTemplateListener
+class ProcessFormDataListener
 {
 
 
