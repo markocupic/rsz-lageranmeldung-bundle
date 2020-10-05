@@ -11,170 +11,196 @@
 use Contao\Backend;
 use Contao\DC_Table;
 use Contao\Input;
+$GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
 
-/**
- * Table tl_rsz_lageranmeldung
- */
-$GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = array(
-
-    // Config
-    'config'      => array(
+    'config' => [
         'dataContainer'    => 'Table',
+        'doNotCopyRecords' => true,
         'enableVersioning' => true,
-        'sql'              => array(
-            'keys' => array(
+        'switchToEdit'     => true,
+        'sql'              => [
+            'keys' => [
                 'id' => 'primary'
-            )
-        ),
-    ),
-    'edit'        => array(
-        'buttons_callback' => array(
-            array('tl_rsz_lageranmeldung', 'buttonsCallback')
-        )
-    ),
-    'list'        => array(
-        'sorting'           => array(
+            ]
+        ]
+    ],
+    'list'     => [
+        'sorting'           => [
             'mode'        => 2,
-            'fields'      => array('title'),
+            'fields'      => ['firstname DESC'],
             'flag'        => 1,
             'panelLayout' => 'filter;sort,search,limit'
-        ),
-        'label'             => array(
-            'fields' => array('title'),
-            'format' => '%s',
-        ),
-        'global_operations' => array(
-            'all' => array(
+        ],
+        'label'             => [
+            'fields'      => ['firstname', 'lastname', 'lager', 'tstamp'],
+            'showColumns' => true,
+        ],
+        'global_operations' => [
+            'all' => [
                 'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"'
-            )
-        ),
-        'operations'        => array(
-            'edit'   => array(
+                'attributes' => 'onclick="Backend.getScrollOffset();"'
+            ]
+        ],
+        'operations'        => [
+            'edit'   => [
                 'label' => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['edit'],
                 'href'  => 'act=edit',
                 'icon'  => 'edit.gif'
-            ),
-            'copy'   => array(
-                'label' => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['copy'],
+            ],
+            'copy'   => [
+                'label' => &$GLOBALS['TL_LANG']['tl_news']['copy'],
                 'href'  => 'act=copy',
                 'icon'  => 'copy.gif'
-            ),
-            'delete' => array(
+            ],
+            'delete' => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['delete'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
-            ),
-            'show'   => array(
-                'label'      => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['show'],
-                'href'       => 'act=show',
-                'icon'       => 'show.gif',
-                'attributes' => 'style="margin-right:3px"'
-            ),
-        )
-    ),
-    // Palettes
-    'palettes'    => array(
-        '__selector__' => array('addSubpalette'),
-        'default'      => '{first_legend},title,selectField,checkboxField,multitextField;{second_legend},addSubpalette'
-    ),
-    // Subpalettes
-    'subpalettes' => array(
-        'addSubpalette' => 'textareaField',
-    ),
-    // Fields
-    'fields'      => array(
-        'id'             => array(
+                'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+            ],
+            'show'   => [
+                'label' => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['show'],
+                'href'  => 'act=show',
+                'icon'  => 'show.gif'
+            ]
+        ]
+    ],
+    'palettes' => [
+        'default' => 'lager,take_part,username,firstname,lastname,street,postal,city,contact_person_name,contact_person_phone,medicaments,tent_size',
+    ],
+    'fields' => [
+        'id'                   => [
             'sql' => "int(10) unsigned NOT NULL auto_increment"
-        ),
-        'tstamp'         => array(
-            'sql' => "int(10) unsigned NOT NULL default '0'"
-        ),
-        'title'          => array(
-            'inputType' => 'text',
+        ],
+        'tstamp'               => [
+            'label'   => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tstamp'],
+            'sorting' => true,
+            'flag'    => 6,
+            'sql'     => "int(10) unsigned NOT NULL default '0'"
+        ],
+        'take_part'            => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['take_part'],
             'exclude'   => true,
             'search'    => true,
             'filter'    => true,
             'sorting'   => true,
-            'flag'      => 1,
-            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''"
-        ),
-        'selectField'    => array(
             'inputType' => 'select',
+            'options'   => ['ja', 'nein'],
+            'sql'       => "varchar(8) NOT NULL default 'nein'"
+        ],
+        'lager'                => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['lager'],
             'exclude'   => true,
             'search'    => true,
             'filter'    => true,
             'sorting'   => true,
-            'reference' => $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung'],
-            'options'   => array('firstoption', 'secondoption'),
-            //'foreignKey'            => 'tl_user.name',
-            //'options_callback'      => array('CLASS', 'METHOD'),
-            'eval'      => array('includeBlankOption' => true, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''",
-            //'relation'  => array('type' => 'hasOne', 'load' => 'lazy')
-        ),
-        'checkboxField'  => array(
             'inputType' => 'select',
-            'exclude'   => true,
-            'search'    => true,
-            'filter'    => true,
-            'sorting'   => true,
-            'reference' => $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung'],
-            'options'   => array('firstoption', 'secondoption'),
-            //'foreignKey'            => 'tl_user.name',
-            //'options_callback'      => array('CLASS', 'METHOD'),
-            'eval'      => array('includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''",
-            //'relation'  => array('type' => 'hasOne', 'load' => 'lazy')
-        ),
-        'multitextField' => array(
-            'inputType' => 'text',
-            'exclude'   => true,
-            'search'    => true,
-            'filter'    => true,
-            'sorting'   => true,
-            'eval'      => array('multiple' => true, 'size' => 4, 'decodeEntities' => true, 'tl_class' => 'w50'),
+            'options'   => ['lager_1', 'lager_2'],
+            'eval'      => ['mandatory' => true, 'maxlength' => 255],
             'sql'       => "varchar(255) NOT NULL default ''"
-        ),
-        'addSubpalette'  => array(
+        ],
+        'username'             => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['username'],
             'exclude'   => true,
-            'inputType' => 'checkbox',
-            'eval'      => array('submitOnChange' => true, 'tl_class' => 'w50 clr'),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'textareaField'  => array(
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'unique' => true, 'nullIfEmpty' => true, 'maxlength' => 255],
+            'sql'       => "varchar(64) COLLATE utf8_bin NULL"
+        ],
+        'firstname'            => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['firstname'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 255],
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ],
+        'lastname'             => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['lastname'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 255],
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ],
+        'street'               => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['street'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 255],
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ],
+        'postal'               => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['postal'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 4],
+            'sql'       => "varchar(4) NOT NULL default ''"
+        ],
+        'city'                 => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['city'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 255],
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ],
+        'contact_person_name'  => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_name'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 255],
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ],
+        'contact_person_phone' => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_phone'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'inputType' => 'text',
+            'eval'      => ['mandatory' => true, 'maxlength' => 64, 'rgxp' => 'phone', 'decodeEntities' => true, 'tl_class' => 'w50'],
+            'sql'       => "varchar(64) NOT NULL default ''"
+        ],
+        'medicaments'          => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['medicaments'],
+            'exclude'   => false,
+            'search'    => true,
             'inputType' => 'textarea',
-            'exclude'   => true,
+            'eval'      => ['mandatory' => false, 'maxlength' => 512, 'tl_class' => 'clr'],
+            'sql'       => "varchar(512) NOT NULL default ''"
+        ],
+        'tent_size'            => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tent_size'],
+            'exclude'   => false,
             'search'    => true,
-            'filter'    => true,
-            'sorting'   => true,
-            'eval'      => array('rte' => 'tinyMCE', 'tl_class' => 'clr'),
-            'sql'       => 'text NOT NULL'
-        )
-    )
-);
+            'inputType' => 'select',
+            'options'   => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            'eval'      => ['mandatory' => false, 'maxlength' => 128],
+            'sql'       => "smallint(5) unsigned NOT NULL default '0'"
+        ]
+    ]
+];
 
 /**
  * Class tl_rsz_lageranmeldung
  */
 class tl_rsz_lageranmeldung extends Backend
 {
-    /**
-     * @param $arrButtons
-     * @param  DC_Table $dc
-     * @return mixed
-     */
-    public function buttonsCallback($arrButtons, DC_Table $dc)
+    public function labelCallback($row, $label)
     {
-        if (Input::get('act') === 'edit')
-        {
-            $arrButtons['customButton'] = '<button type="submit" name="customButton" id="customButton" class="tl_submit customButton" accesskey="x">' . $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['customButton'] . '</button>';
-        }
-
-        return $arrButtons;
+        return $label;
     }
+
 }

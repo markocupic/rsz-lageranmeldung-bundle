@@ -9,12 +9,6 @@
  */
 
 /**
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['first_legend'] = "Basis Einstellungen";
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['second_legend'] = "Erweiterte Einstellungen";
-
-/**
  * Operations
  */
 $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['edit'] = ["Datensatz mit ID: %s bearbeiten", "Datensatz mit ID: %s bearbeiten"];
@@ -25,20 +19,17 @@ $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['show'] = ["Datensatz mit ID: %s an
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['title'] = ["Name", "Geben Sie einen Namen ein"];
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['selectField'] = ["Select Feld", "Wählen Sie aus."];
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['checkboxField'] = ["Chosen Feld", "Wählen Sie aus."];
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['multitextField'] = ["Multitext Feld", "Geben Sie die Werte ein"];
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['addSubpalette'] = ["Erweiterte Einstellungen aktivieren", "Hier können Sie die erweiterten Einstellungen aktivieren."];
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['textareaField'] = ["Textarea", "Geben Sie einen Text ein"];
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['take_part'] = array('Teilnahme', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['lager'] = array('Lager', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['username'] = array('Benutzername', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['firstname'] = array('Vorname', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['lastname'] = array('Nachname', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['street'] = array('Strasse', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['city'] = array('Ort', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['postal'] = array('Postleitzahl', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_name'] = array('Kontaktname', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_phone'] = array('Kontaktname Telefonnummer', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['medicaments'] = array('Medikamente', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tent_size'] = array('Zeltgr&ouml;sse', '');
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tstamp'] = array('Anmeldedatum', '');
 
-/**
- * References
- */
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['firstoption'] = "Erste Option";
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['secondoption'] = "Zweite Option";
-
-/**
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['customButton'] = "Custom Routine starten";

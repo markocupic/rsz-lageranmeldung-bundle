@@ -1,5 +1,13 @@
 services:
 
-  Markocupic\RszJahresprogrammBundle\EventListener\ContaoHooks\ParseBackendTemplateListener:
+  Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks\ParseBackendTemplateListener:
     tags:
       - { name: contao.hook, hook: parseBackendTemplate, method: addDownloadButton, priority: 0 }
+
+  Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks\LoadFormFieldListener:
+    tags:
+      - { name: contao.hook, hook: loadFormField, method: loadFormField, priority: 0 }
+
+  Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks\ProcessFormDataListener:
+    tags:
+      - { name: contao.hook, hook: processFormData, method: processFormData, priority: 0 }
