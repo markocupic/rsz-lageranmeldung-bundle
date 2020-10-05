@@ -1,0 +1,3 @@
+services:
+    PhpCsFixer\Fixer\Comment\HeaderCommentFixer:
+        header: "This file is part of RSZ Lageranmeldung.\n\n(c) Marko Cupic 2020 <m.cupic@gmx.ch>\n@license MIT\n@link https://github.com/markocupic/rsz-lageranmeldung-bundle\n"

@@ -1,0 +1,5 @@
+services:
+
+  Markocupic\RszJahresprogrammBundle\EventListener\ContaoHooks\ParseBackendTemplateListener:
+    tags:
+      - { name: contao.hook, hook: parseBackendTemplate, method: addDownloadButton, priority: 0 }
