@@ -33,7 +33,9 @@
         "symfony/phpunit-bridge": "4.4.*"
     },
     "autoload": {
-        "psr-4": {},
+        "psr-4": {
+            "Markocupic\\RszLageranmeldungBundle\\": "src/"
+        },
         "classmap": [
             "src/Resources/contao"
         ],

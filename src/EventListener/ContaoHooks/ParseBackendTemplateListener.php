@@ -22,11 +22,10 @@ class ProcessFormDataListener
 
     public function addDownloadButton(string $buffer, string $template): string
     {
-        die('d');
 
         if ('be_main' === $template) {
-            die('d');
-            // Modify $buffer
+
+            preg_replace('/\<table class=\"tl_listing\"(.*?)\<\/table\>','<h1>hallo</h1>', $buffer);
         }
 
         return $buffer;
