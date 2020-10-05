@@ -21,12 +21,14 @@ use Contao\System;
  */
 class ProcessFormDataListener
 {
+
+
     /**
-     * @param $arrPost
-     * @param $arrForm
-     * @param $arrFiles
+     * @param array $arrPost
+     * @param array $arrForm
+     * @param array|null $arrFiles
      */
-    public function processFormData(array $arrPost, array $arrForm, array $arrFiles): void
+    public function processFormData(array $arrPost, array $arrForm, ?array $arrFiles): void
     {
         if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && FE_USER_LOGGED_IN) {
             $security = System::getContainer()->get('security.helper');

@@ -39,7 +39,6 @@ class LoadFormFieldListener
                 if ($user instanceof FrontendUser)
                 {
                     // Formularfelder mit evtl. bereits schon vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen
-                    $this->import('FrontendUser', 'User');
                     $objDb = Database::getInstance()
                         ->prepare('SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=?')
                         ->limit(1)

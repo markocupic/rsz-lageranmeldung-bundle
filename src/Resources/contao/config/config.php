@@ -10,13 +10,13 @@
 
 use Contao\Input;
 use Markocupic\RszLageranmeldungBundle\Model\RszLageranmeldungModel;
-use Markocupic\ExportTable\ExportTable;
+
 /**
  * Backend modules
  */
-$GLOBALS['BE_MOD']['rsz_tools']['rsz_lageranmeldung'] = array(
-    'tables' => array('tl_rsz_lageranmeldung')
-);
+$GLOBALS['BE_MOD']['rsz_tools']['rsz_lageranmeldung'] = [
+    'tables' => ['tl_rsz_lageranmeldung'],
+];
 
 /**
  * Models
@@ -26,15 +26,6 @@ $GLOBALS['TL_MODELS']['tl_rsz_lageranmeldung'] = RszLageranmeldungModel::class;
 /**
  * CSS
  */
-if(Input::get('do') === 'rsz_lageranmeldung')
-{
-    $GLOBALS['TL_CSS'][] = 'bundles/markocupicrszlageranmeldung/css/stylesheet.css';
-}
-
-/**
- * Export event members after clicking on the Export button
- */
-if(TL_MODE === 'BE' && Input::get('do') === 'rsz_lageranmeldung' && Input::get('action') === 'csv-export')
-{
-    ExportTable::exportTable('tl_rsz_lageranmeldung');
+if (Input::get('do') === 'rsz_lageranmeldung') {
+    $GLOBALS['TL_CSS'][] = 'bundles/markocupicrszlageranmeldung/css/be_stylesheet.css|static';
 }

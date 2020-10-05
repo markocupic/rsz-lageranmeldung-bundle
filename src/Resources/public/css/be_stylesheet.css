@@ -4,6 +4,8 @@
     color: #fff !important;
     text-shadow: none !important;
     font-weight: bold;
+    display:inline-block;
+    margin-top: 1.5rem;
 }
 
 .tl_submit.rsz-lageranmeldung-csv-export-button:hover
