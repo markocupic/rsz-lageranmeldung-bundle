@@ -13,40 +13,44 @@ declare(strict_types=1);
 namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
 use Contao\Database;
+use Contao\FrontendUser;
+use Contao\System;
 
 /**
- * Class ProcessFormDataListener
- * @package Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks
+ * Class ProcessFormDataListener.
  */
 class ProcessFormDataListener
 {
-
-
     /**
      * @param $arrPost
      * @param $arrForm
      * @param $arrFiles
      */
-    public function processFormData(array $arrPost, array $arrForm, array $arrFiles)
+    public function processFormData(array $arrPost, array $arrForm, array $arrFiles): void
     {
+        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && FE_USER_LOGGED_IN) {
+            $security = System::getContainer()->get('security.helper');
+            $user = $security->getUser();
 
-        if (($arrForm['formID'] === 'lager_1' || $arrForm['formID'] === 'lager_2') && FE_USER_LOGGED_IN) {
-            $this->import('FrontendUser', 'User');
-            $arrPost['tstamp'] = time();
+            if ($user instanceof FrontendUser) {
+                $arrPost['tstamp'] = time();
 
-            // Evtl. vorhandene alte Inhalte durch neue Inhalte ersetzen
-            Database::getInstance()
-                ->prepare('DELETE FROM tl_rsz_lageranmeldung WHERE username=? && lager=?')
-                ->execute(
-                    $this->User->username,
-                    $arrForm['formID']
-                );
+                // Evtl. vorhandene alte Inhalte durch neue Inhalte ersetzen
+                Database::getInstance()
+                    ->prepare('DELETE FROM tl_rsz_lageranmeldung WHERE username=? && lager=?')
+                    ->execute(
+                        $user->username,
+                        $arrForm['formID']
+                    )
+                ;
 
-            Database::getInstance()
-                ->prepare('INSERT INTO tl_rsz_lageranmeldung %s')
-                ->set($arrPost)
-                ->execute();
+                Database::getInstance()
+                    ->prepare('INSERT INTO tl_rsz_lageranmeldung %s')
+                    ->set($arrPost)
+                    ->execute()
+                ;
+            }
         }
     }
-
+    
 }
