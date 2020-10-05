@@ -6,5 +6,5 @@ cd..
 cd..
 cd..
 cd..
-vendor\bin\ecs check vendor/markocupic/rsz-lageranmeldung-bundle/tests --fix --config vendor/markocupic/rsz-lageranmeldung-bundle/.ecs/config/default.yaml
+vendor\bin\ecs check vendor/markocupic/rsz-lageranmeldung-bundle/src/Resources/contao/templates --fix --config vendor/markocupic/rsz-lageranmeldung-bundle/.ecs/config/template.yaml
 cd vendor/markocupic/rsz-lageranmeldung-bundle/.ecs./batch/fix
