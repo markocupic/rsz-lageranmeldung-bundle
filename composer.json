@@ -23,7 +23,8 @@
     },
     "require": {
         "contao/core-bundle": "^4.9",
-        "contao/easy-coding-standard": "^2.1"
+        "contao/easy-coding-standard": "^2.1",
+        "codefog/contao-haste": "^4.22"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.3",

@@ -12,23 +12,33 @@ declare(strict_types=1);
 
 namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
+use Contao\Input;
+use Haste\Util\Url;
+
 /**
- * Class ParseBackendTemplateListener
- * @package Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks
+ * Class ParseBackendTemplateListener.
  */
 class ParseBackendTemplateListener
 {
-
-
+    /**
+     * Add download button to the bottom
+     * @param string $buffer
+     * @param string $template
+     * @return string
+     */
     public function addDownloadButton(string $buffer, string $template): string
     {
+        if ('be_main' === $template && 'rsz_lageranmeldung' === Input::get('do')) {
+            $button = sprintf(
+                '<a href="/%s" class="rsz-lageranmeldung-csv-export-button tl_submit">Excel Export</a>',
+                Url::addQueryString('action=csv-export')
+            );
 
-        if ('be_main' === $template) {
-
-            preg_replace('/\<table class=\"tl_listing\"(.*?)\<\/table\>','<h1>hallo</h1>', $buffer);
+            if (null !== ($html = preg_replace('/<table class="tl_listing(.*?)<\/table>/is', '<table class="tl_listing$1</table>'.$button, $buffer))) {
+                $buffer = $html;
+            }
         }
 
         return $buffer;
     }
-
 }

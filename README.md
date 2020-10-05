@@ -2,4 +2,6 @@
 
 
 # Welcome to RSZ Lageranmeldung
-This bundle is still under construction.
+Das Modul enthält mehrere Contao Formular Hooks für den Contao Formulargenerator. 
+
+Zudem enthält dieses Bundle noch ein Backendmodul für die Verwaltung der Lagerteilnehmer. 
