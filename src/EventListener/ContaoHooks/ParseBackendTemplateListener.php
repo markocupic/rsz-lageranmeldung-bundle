@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace Markocupic\RszJahresprogrammBundle\EventListener\ContaoHooks;
 
 /**
- * Class ProcessFormDataListener
+ * Class ParseBackendTemplateListener
  * @package Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks
  */
-class ProcessFormDataListener
+class ParseBackendTemplateListener
 {
 
 
