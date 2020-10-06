@@ -16,6 +16,7 @@ use Contao\FrontendUser;
 use Contao\Widget;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -34,12 +35,18 @@ class LoadFormFieldListener
     private $connection;
 
     /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
      * LoadFormFieldListener constructor.
      */
-    public function __construct(Security $security, Connection $connection)
+    public function __construct(Security $security, Connection $connection, RequestStack $requestStack)
     {
         $this->security = $security;
         $this->connection = $connection;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -48,10 +55,11 @@ class LoadFormFieldListener
     public function loadFormField(Widget $objWidget, string $strForm, array $arrForm): Widget
     {
         $user = $this->security->getUser();
+        $request = $this->requestStack->getCurrentRequest();
 
         if ($user instanceof FrontendUser) {
             
-        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID'])&& !isset($_POST['FORM_SUBMIT'])) {
+        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && !$request->request->has('FORM_SUBMIT')) {
             if ('hidden' !== $objWidget->type) {
 
                     // Formularfelder mit evtl. bereits schon vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen

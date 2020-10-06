@@ -1,6 +1,8 @@
 services:
 
   Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks\ParseBackendTemplateListener:
+    arguments:
+      - '@request_stack'
     tags:
       - { name: contao.hook, hook: parseBackendTemplate, method: addDownloadButton, priority: 0 }
 
@@ -8,6 +10,7 @@ services:
     arguments:
       - '@security.helper'
       - '@database_connection'
+      - '@request_stack'
     tags:
       - { name: contao.hook, hook: loadFormField, method: loadFormField, priority: 0 }
 

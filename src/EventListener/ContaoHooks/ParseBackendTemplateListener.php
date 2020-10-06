@@ -14,6 +14,7 @@ namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
 use Contao\Input;
 use Haste\Util\Url;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class ParseBackendTemplateListener.
@@ -21,14 +22,27 @@ use Haste\Util\Url;
 class ParseBackendTemplateListener
 {
     /**
-     * Add download button to the bottom
-     * @param string $buffer
-     * @param string $template
-     * @return string
+     * @var RequestStack
+     */
+    private $requstStack;
+
+    /**
+     * ParseBackendTemplateListener constructor.
+     * @param RequestStack $requstStack
+     */
+    public function __construct(RequestStack $requstStack)
+    {
+        $this->requstStack = $requstStack;
+    }
+
+    /**
+     * Add download button to the bottom.
      */
     public function addDownloadButton(string $buffer, string $template): string
     {
-        if ('be_main' === $template && 'rsz_lageranmeldung' === Input::get('do')) {
+        $request = $this->requstStack->getCurrentRequest();
+
+        if ('be_main' === $template && 'rsz_lageranmeldung' === $request->query->get('do')) {
             $button = sprintf(
                 '<a href="/%s" class="rsz-lageranmeldung-csv-export-button tl_submit">Excel Export</a>',
                 Url::addQueryString('action=csv-export')
