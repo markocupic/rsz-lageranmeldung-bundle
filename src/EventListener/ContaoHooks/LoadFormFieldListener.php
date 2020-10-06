@@ -12,16 +12,35 @@ declare(strict_types=1);
 
 namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
-use Contao\Database;
 use Contao\FrontendUser;
-use Contao\System;
 use Contao\Widget;
+use Doctrine\DBAL\Connection;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class LoadFormFieldListener.
  */
 class LoadFormFieldListener
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * LoadFormFieldListener constructor.
+     */
+    public function __construct(Security $security, Connection $connection)
+    {
+        $this->security = $security;
+        $this->connection = $connection;
+    }
+
     /**
      * @param $objWidget
      * @param $strForm
@@ -33,24 +52,17 @@ class LoadFormFieldListener
     {
         if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && FE_USER_LOGGED_IN && !isset($_POST['FORM_SUBMIT'])) {
             if ('hidden' !== $objWidget->type) {
+                $user = $this->security->getUser();
 
-                $security = System::getContainer()->get('security.helper');
-                $user = $security->getUser();
-                if ($user instanceof FrontendUser)
-                {
+                if ($user instanceof FrontendUser) {
                     // Formularfelder mit evtl. bereits schon vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen
-                    $objDb = Database::getInstance()
-                        ->prepare('SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=?')
-                        ->limit(1)
-                        ->execute(
-                            $user->username,
-                            $arrForm['formID']
-                        )
-                    ;
-
-                    if ($objDb->numRows) {
-                        $arrRow = $objDb->row();
-
+                    $result = $this->connection->executeQuery(
+                            'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=? LIMIT 0,1',
+                            [$user->username, $arrForm['formID']]
+                        );
+                    
+                    if ($result->rowCount()) {
+                        $arrRow = $result->fetch();
                         if (isset($arrRow[$objWidget->name])) {
                             if ('' !== $arrRow[$objWidget->name]) {
                                 $objWidget->value = $arrRow[$objWidget->name];
