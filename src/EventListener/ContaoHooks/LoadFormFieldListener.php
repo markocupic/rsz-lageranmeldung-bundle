@@ -15,6 +15,7 @@ namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 use Contao\FrontendUser;
 use Contao\Widget;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -42,19 +43,17 @@ class LoadFormFieldListener
     }
 
     /**
-     * @param Widget $objWidget
-     * @param string $strForm
-     * @param array $arrForm
-     * @return Widget
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     public function loadFormField(Widget $objWidget, string $strForm, array $arrForm): Widget
     {
-        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && FE_USER_LOGGED_IN && !isset($_POST['FORM_SUBMIT'])) {
-            if ('hidden' !== $objWidget->type) {
-                $user = $this->security->getUser();
+        $user = $this->security->getUser();
 
-                if ($user instanceof FrontendUser) {
+        if ($user instanceof FrontendUser) {
+            
+        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID'])&& !isset($_POST['FORM_SUBMIT'])) {
+            if ('hidden' !== $objWidget->type) {
+
                     // Formularfelder mit evtl. bereits schon vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen
                     $result = $this->connection->executeQuery(
                             'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=? LIMIT 0,1',

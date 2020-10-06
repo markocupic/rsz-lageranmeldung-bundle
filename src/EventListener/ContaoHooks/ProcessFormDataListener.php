@@ -42,17 +42,14 @@ class ProcessFormDataListener
     }
 
     /**
-     * @param array $arrPost
-     * @param array $arrForm
-     * @param array|null $arrFiles
      * @throws Exception
      */
     public function processFormData(array $arrPost, array $arrForm, ?array $arrFiles): void
     {
-        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && FE_USER_LOGGED_IN) {
-            $user = $this->security->getUser();
+        $user = $this->security->getUser();
 
-            if ($user instanceof FrontendUser) {
+        if ($user instanceof FrontendUser) {
+            if ('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) {
                 $arrPost['tstamp'] = time();
 
                 // Delete old entry
