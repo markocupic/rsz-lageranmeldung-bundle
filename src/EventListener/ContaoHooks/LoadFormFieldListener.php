@@ -42,11 +42,11 @@ class LoadFormFieldListener
     }
 
     /**
-     * @param $objWidget
-     * @param $strForm
-     * @param $arrForm
-     *
-     * @return mixed
+     * @param Widget $objWidget
+     * @param string $strForm
+     * @param array $arrForm
+     * @return Widget
+     * @throws \Doctrine\DBAL\Exception
      */
     public function loadFormField(Widget $objWidget, string $strForm, array $arrForm): Widget
     {
@@ -60,9 +60,10 @@ class LoadFormFieldListener
                             'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=? LIMIT 0,1',
                             [$user->username, $arrForm['formID']]
                         );
-                    
+
                     if ($result->rowCount()) {
                         $arrRow = $result->fetch();
+
                         if (isset($arrRow[$objWidget->name])) {
                             if ('' !== $arrRow[$objWidget->name]) {
                                 $objWidget->value = $arrRow[$objWidget->name];

@@ -14,6 +14,7 @@ namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
 use Contao\FrontendUser;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -44,7 +45,7 @@ class ProcessFormDataListener
      * @param array $arrPost
      * @param array $arrForm
      * @param array|null $arrFiles
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     public function processFormData(array $arrPost, array $arrForm, ?array $arrFiles): void
     {
