@@ -35,7 +35,7 @@ class ProcessFormDataListener
     /**
      * ProcessFormDataListener constructor.
      */
-    public function __construct(Security $security, Connection $connection, RequestStack $requestStack)
+    public function __construct(Security $security, Connection $connection)
     {
         $this->security = $security;
         $this->connection = $connection;
