@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 /*
- * This file is part of RSZ Lageranmeldung.
+ * This file is part of RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2020 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
  * @license MIT
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
  */
 
@@ -58,15 +60,13 @@ class LoadFormFieldListener
         $request = $this->requestStack->getCurrentRequest();
 
         if ($user instanceof FrontendUser) {
-            
-        if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && !$request->request->has('FORM_SUBMIT')) {
-            if ('hidden' !== $objWidget->type) {
-
+            if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && !$request->request->has('FORM_SUBMIT')) {
+                if ('hidden' !== $objWidget->type) {
                     // Formularfelder mit evtl. bereits schon vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen
                     $result = $this->connection->executeQuery(
-                            'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=? LIMIT 0,1',
-                            [$user->username, $arrForm['formID']]
-                        );
+                        'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=? LIMIT 0,1',
+                        [$user->username, $arrForm['formID']]
+                    );
 
                     if ($result->rowCount()) {
                         $arrRow = $result->fetch();

@@ -44,7 +44,7 @@ class ProcessFormDataListener
     /**
      * @throws Exception
      */
-    public function processFormData(array $arrPost, array $arrForm, ?array $arrFiles): void
+    public function processFormData(array $arrPost, array $arrForm, array|null $arrFiles): void
     {
         $user = $this->security->getUser();
 

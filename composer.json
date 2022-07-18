@@ -23,7 +23,8 @@
     },
     "require": {
         "contao/core-bundle": "^4.9",
-        "codefog/contao-haste": "^4.22"
+        "codefog/contao-haste": "^4.22",
+        "markocupic/export_table": "^5.3"
     },
     "require-dev": {
         "contao/easy-coding-standard": "^5.0"

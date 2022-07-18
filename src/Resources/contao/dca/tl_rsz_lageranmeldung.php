@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of RSZ Lageranmeldung.
+ * This file is part of RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2020 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
  * @license MIT
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
  */
-
-use Contao\Backend;
-use Contao\Input;
-use Markocupic\ExportTable\ExportTable;
 
 $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
     'config'   => [
@@ -22,9 +22,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'keys' => [
                 'id' => 'primary',
             ],
-        ],
-        'onload_callback'  => [
-            ['tl_rsz_lageranmeldung', 'downloadEventMembersAsCsv'],
         ],
     ],
     'list'     => [
@@ -75,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
     ],
     'fields'   => [
         'id'                   => [
-            'sql' => "int(10) unsigned NOT NULL auto_increment",
+            'sql' => 'int(10) unsigned NOT NULL auto_increment',
         ],
         'tstamp'               => [
             'label'   => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tstamp'],
@@ -84,7 +81,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ],
         'take_part'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['take_part'],
             'exclude'   => true,
             'search'    => true,
             'filter'    => true,
@@ -94,7 +90,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(8) NOT NULL default 'nein'",
         ],
         'lager'                => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['lager'],
             'exclude'   => true,
             'search'    => true,
             'filter'    => true,
@@ -105,16 +100,14 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'username'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['username'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => true, 'unique' => true, 'nullIfEmpty' => true, 'maxlength' => 255],
-            'sql'       => "varchar(64) BINARY NULL",
+            'sql'       => 'varchar(64) BINARY NULL',
         ],
         'firstname'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['firstname'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -123,7 +116,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'lastname'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['lastname'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -132,7 +124,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'street'               => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['street'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -141,7 +132,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'postal'               => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['postal'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -150,7 +140,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(4) NOT NULL default ''",
         ],
         'city'                 => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['city'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -159,7 +148,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'contact_person_name'  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_name'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -168,7 +156,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'contact_person_phone' => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_phone'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -177,7 +164,6 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(64) NOT NULL default ''",
         ],
         'medicaments'          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['medicaments'],
             'exclude'   => false,
             'search'    => true,
             'inputType' => 'textarea',
@@ -185,34 +171,12 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
             'sql'       => "varchar(512) NOT NULL default ''",
         ],
         'tent_size'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tent_size'],
             'exclude'   => false,
             'search'    => true,
             'inputType' => 'select',
-            'options'   => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            'options'   => range(1, 10),
             'eval'      => ['mandatory' => false, 'maxlength' => 128],
             'sql'       => "smallint(5) unsigned NOT NULL default '0'",
         ],
     ],
 ];
-
-/**
- * Class tl_rsz_lageranmeldung
- */
-class tl_rsz_lageranmeldung extends Backend
-{
-    /**
-     * Export event members as csv spreadsheet after clicking the export button
-     */
-    public function downloadEventMembersAsCsv()
-    {
-        if (Input::get('do') === 'rsz_lageranmeldung' && Input::get('action') === 'csv-export') {
-            ExportTable::exportTable('tl_rsz_lageranmeldung');
-        }
-    }
-
-    public function labelCallback($row, $label)
-    {
-        return $label;
-    }
-}
