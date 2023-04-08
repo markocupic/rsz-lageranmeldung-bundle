@@ -38,7 +38,7 @@ class ParseBackendTemplateListener
 
         if ('be_main' === $template && 'rsz_lageranmeldung' === $request->query->get('do')) {
             $button = sprintf(
-                '<a href="/%s" class="rsz-lageranmeldung-csv-export-button tl_submit">Excel Export</a>',
+                '<a href="%s" class="rsz-lageranmeldung-csv-export-button tl_submit">Excel Export</a>',
                 $this->urlParser->addQueryString('action=csv-export')
             );
 
