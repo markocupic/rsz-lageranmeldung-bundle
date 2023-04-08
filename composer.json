@@ -3,9 +3,7 @@
     "description": "RSZ Lageranmeldung in Zusammenhang mit Contao-Form-Generator",
     "keywords": [
         "contao",
-        "bundle",
-        "tag 3",
-        "tag 4"
+        "bundle"
     ],
     "type": "contao-bundle",
     "license": "MIT",
@@ -22,9 +20,10 @@
         "source": "https://github.com/markocupic/rsz-lageranmeldung-bundle"
     },
     "require": {
-        "contao/core-bundle": "^4.9",
-        "codefog/contao-haste": "^4.22",
-        "markocupic/export_table": "^5.3"
+        "php": "^8.1",
+        "contao/core-bundle": "^4.13 || ^5.0",
+        "codefog/contao-haste": "^5.0",
+        "markocupic/export_table": "^5.6"
     },
     "require-dev": {
         "contao/easy-coding-standard": "^5.0"
@@ -32,16 +31,7 @@
     "autoload": {
         "psr-4": {
             "Markocupic\\RszLageranmeldungBundle\\": "src/"
-        },
-        "classmap": [
-            "src/Resources/contao"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config",
-            "src/Resources/contao/dca",
-            "src/Resources/contao/languages",
-            "src/Resources/contao/templates"
-        ]
+        }
     },
     "extra": {
         "contao-manager-plugin": "Markocupic\\RszLageranmeldungBundle\\ContaoManager\\Plugin"

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -34,5 +34,5 @@ $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['postal'] = ['Postleitzahl', ''];
 $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_name'] = ['Kontaktname', ''];
 $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['contact_person_phone'] = ['Kontaktname Telefonnummer', ''];
 $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['medicaments'] = ['Medikamente', ''];
-$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tent_size'] = ['Zeltgr&ouml;sse', ''];
+$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tent_size'] = ['Zeltgrösse', ''];
 $GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tstamp'] = ['Anmeldedatum', ''];

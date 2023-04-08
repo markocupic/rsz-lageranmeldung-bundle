@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 /*
- * This file is part of RSZ Lageranmeldung Bundle.
+ * This file is part of Contao RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
- * @license MIT
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
@@ -14,38 +14,32 @@ declare(strict_types=1);
 
 namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
-use Haste\Util\Url;
+use Codefog\HasteBundle\UrlParser;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * Class ParseBackendTemplateListener.
- */
+#[AsHook(self::HOOK)]
 class ParseBackendTemplateListener
 {
-    /**
-     * @var RequestStack
-     */
-    private $requstStack;
+    public const HOOK = 'parseBackendTemplate';
 
-    /**
-     * ParseBackendTemplateListener constructor.
-     */
-    public function __construct(RequestStack $requstStack)
-    {
-        $this->requstStack = $requstStack;
+    public function __construct(
+        private readonly RequestStack $requstStack,
+        private readonly UrlParser $urlParser,
+    ) {
     }
 
     /**
-     * Add download button to the bottom.
+     * Add the download button to the bottom.
      */
-    public function addDownloadButton(string $buffer, string $template): string
+    public function __invoke(string $buffer, string $template): string
     {
         $request = $this->requstStack->getCurrentRequest();
 
         if ('be_main' === $template && 'rsz_lageranmeldung' === $request->query->get('do')) {
             $button = sprintf(
                 '<a href="/%s" class="rsz-lageranmeldung-csv-export-button tl_submit">Excel Export</a>',
-                Url::addQueryString('action=csv-export')
+                $this->urlParser->addQueryString('action=csv-export')
             );
 
             if (null !== ($html = preg_replace('/<table class="tl_listing(.*?)<\/table>/is', '<table class="tl_listing$1</table>'.$button, $buffer))) {

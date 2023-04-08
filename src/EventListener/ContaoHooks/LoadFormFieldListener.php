@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 /*
- * This file is part of RSZ Lageranmeldung Bundle.
+ * This file is part of Contao RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
- * @license MIT
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * @license GPL-3.0-or-later
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\FrontendUser;
 use Contao\Widget;
 use Doctrine\DBAL\Connection;
@@ -21,40 +22,22 @@ use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
 
-/**
- * Class LoadFormFieldListener.
- */
+#[AsHook(self::HOOK)]
 class LoadFormFieldListener
 {
-    /**
-     * @var Security
-     */
-    private $security;
+    public const HOOK = 'loadFormField';
 
-    /**
-     * @var Connection
-     */
-    private $connection;
-
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
-     * LoadFormFieldListener constructor.
-     */
-    public function __construct(Security $security, Connection $connection, RequestStack $requestStack)
-    {
-        $this->security = $security;
-        $this->connection = $connection;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private readonly Security $security,
+        private readonly Connection $connection,
+        private readonly RequestStack $requestStack,
+    ) {
     }
 
     /**
      * @throws Exception
      */
-    public function loadFormField(Widget $objWidget, string $strForm, array $arrForm): Widget
+    public function __invoke(Widget $objWidget, string $strForm, array $arrForm): Widget
     {
         $user = $this->security->getUser();
         $request = $this->requestStack->getCurrentRequest();
@@ -62,9 +45,9 @@ class LoadFormFieldListener
         if ($user instanceof FrontendUser) {
             if (('lager_1' === $arrForm['formID'] || 'lager_2' === $arrForm['formID']) && !$request->request->has('FORM_SUBMIT')) {
                 if ('hidden' !== $objWidget->type) {
-                    // Formularfelder mit evtl. bereits schon vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen
+                    // Formularfelder mit evtl. bereits vorhandenen Inhalten aus alten Lageranmeldungen vorbelegen
                     $result = $this->connection->executeQuery(
-                        'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager=? LIMIT 0,1',
+                        'SELECT * FROM tl_rsz_lageranmeldung WHERE username=? && lager = ? LIMIT 0,1',
                         [$user->username, $arrForm['formID']]
                     );
 

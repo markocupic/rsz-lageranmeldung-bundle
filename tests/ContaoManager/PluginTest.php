@@ -3,7 +3,7 @@
 /*
  * This file is part of RSZ Lageranmeldung.
  * 
- * (c) Marko Cupic 2020 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
  * @license MIT
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
  */
@@ -19,8 +19,6 @@ use Markocupic\RszLageranmeldungBundle\ContaoManager\Plugin;
 use Markocupic\RszLageranmeldungBundle\MarkocupicRszLageranmeldungBundle;
 
 /**
- * Class PluginTest
- *
  * @package Markocupic\RszLageranmeldungBundle\Tests\ContaoManager
  */
 class PluginTest extends ContaoTestCase

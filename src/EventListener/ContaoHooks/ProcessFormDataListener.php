@@ -3,48 +3,38 @@
 declare(strict_types=1);
 
 /*
- * This file is part of RSZ Lageranmeldung.
+ * This file is part of Contao RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2020 <m.cupic@gmx.ch>
- * @license MIT
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
+ * @license GPL-3.0-or-later
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
  */
 
 namespace Markocupic\RszLageranmeldungBundle\EventListener\ContaoHooks;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\FrontendUser;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Symfony\Component\Security\Core\Security;
 
-/**
- * Class ProcessFormDataListener.
- */
+#[AsHook(self::HOOK)]
 class ProcessFormDataListener
 {
-    /**
-     * @var Security
-     */
-    private $security;
+    public const HOOK = 'processFormData';
 
-    /**
-     * @var Connection
-     */
-    private $connection;
-
-    /**
-     * ProcessFormDataListener constructor.
-     */
-    public function __construct(Security $security, Connection $connection)
-    {
-        $this->security = $security;
-        $this->connection = $connection;
+    public function __construct(
+        private readonly Security $security,
+        private readonly Connection $connection,
+    ) {
     }
 
     /**
      * @throws Exception
      */
-    public function processFormData(array $arrPost, array $arrForm, array|null $arrFiles): void
+    public function __invoke(array $arrPost, array $arrForm, array|null $arrFiles): void
     {
         $user = $this->security->getUser();
 

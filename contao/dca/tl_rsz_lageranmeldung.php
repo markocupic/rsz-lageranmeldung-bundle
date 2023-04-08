@@ -5,16 +5,19 @@ declare(strict_types=1);
 /*
  * This file is part of RSZ Lageranmeldung Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2023 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/rsz-lageranmeldung-bundle
  */
 
+use Contao\DataContainer;
+use Contao\DC_Table;
+
 $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
     'config'   => [
-        'dataContainer'    => 'Table',
+        'dataContainer'    => DC_Table::class,
         'doNotCopyRecords' => true,
         'enableVersioning' => true,
         'switchToEdit'     => true,
@@ -26,9 +29,9 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
     ],
     'list'     => [
         'sorting'           => [
-            'mode'        => 2,
+            'mode'        => DataContainer::MODE_SORTABLE,
             'fields'      => ['firstname DESC'],
-            'flag'        => 1,
+            'flag'        => DataContainer::SORT_INITIAL_LETTER_ASC,
             'panelLayout' => 'filter;sort,search,limit',
         ],
         'label'             => [
@@ -77,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_rsz_lageranmeldung'] = [
         'tstamp'               => [
             'label'   => &$GLOBALS['TL_LANG']['tl_rsz_lageranmeldung']['tstamp'],
             'sorting' => true,
-            'flag'    => 6,
+            'flag'    => DataContainer::SORT_DAY_DESC,
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ],
         'take_part'            => [
