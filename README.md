@@ -1,4 +1,4 @@
-![Alt text](src/Resources/public/logo.png?raw=true "logo")
+![Alt text](public/logo.png?raw=true "logo")
 
 
 # RSZ Lageranmeldung für Regionalzentrum Sportklettern Zentralschweiz
