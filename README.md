@@ -1,5 +1,4 @@
-![Alt text](public/logo.png?raw=true "logo")
-
+![Alt text](public/rsz-logo.png?raw=true "logo")
 
 # RSZ Lageranmeldung für Regionalzentrum Sportklettern Zentralschweiz
 Das Modul enthält mehrere Contao Formular Hooks für den Contao Formulargenerator. 
