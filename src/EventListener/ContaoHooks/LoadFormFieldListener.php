@@ -20,7 +20,7 @@ use Contao\Widget;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 #[AsHook(self::HOOK)]
 class LoadFormFieldListener
